@@ -24,4 +24,9 @@ public class SysPageController {
 	public String memberPage(@PathVariable("url") String url){
 		return "admin/member/"+url;
 	}
+
+	@RequestMapping("/admin/tiku/{url}.html")
+	public String tikuPage(@PathVariable("url") String url){
+		return "admin/tiku/"+url;
+	}
 }
