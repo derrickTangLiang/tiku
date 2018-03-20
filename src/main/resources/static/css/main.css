@@ -80,6 +80,10 @@
     background-color: #fff;
     color: #11a68d;
 }
+.header .menu .menu-contain .contain-ul .li-hover {
+    background-color: #fff;
+    color: #11a68d;
+}
 .header .menu .menu-contain .contain-login .login-container {
     height: 46px;
     cursor: pointer;
@@ -158,4 +162,33 @@
 .header .submenu .all-exm .all-ul .all-list .all-list-li a:hover {
     text-decoration: none;
     color: #149987;
+}
+.header .menu .menu-contain .contain-login .user-photo {
+    margin-top: 8px;
+    margin-right: 20px;
+    width: 30px;
+    height: 30px;
+}
+.header .menu .menu-contain .contain-login .photo-icon {
+	font-size: 22px;
+    position: absolute;
+    top: 3px;
+    right: 5px;
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transform-origin: 50% 50% 0;
+    -ms-transform-origin: 50% 50% 0;
+    transform-origin: 50% 50% 0;
+    -webkit-transition: -webkit-transform .2s ease-in 0s;
+    transition: transform .2s ease-in 0s;
+}
+.header .menu .menu-contain .contain-login .login-container:hover {
+    opacity: .8
+}
+.header .menu .menu-contain .contain-login .black {
+    background-color: #313e45;
+}
+.header .menu .menu-contain .contain-login .login-option li a:hover {
+    color: #11a68d
 }

@@ -10,10 +10,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.tamguo.model.AdEntity;
 import com.tamguo.model.CourseEntity;
 import com.tamguo.model.MenuEntity;
 import com.tamguo.model.PaperEntity;
 import com.tamguo.model.SchoolEntity;
+import com.tamguo.service.IAdService;
 import com.tamguo.service.ICourseService;
 import com.tamguo.service.IMenuService;
 import com.tamguo.service.IPaperService;
@@ -36,6 +38,8 @@ public class MenuInterceptor implements HandlerInterceptor {
 	private IPaperService iPaperService;
 	@Resource
 	private ISchoolService iSchoolService;
+	@Resource
+	private IAdService iAdService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -58,6 +62,10 @@ public class MenuInterceptor implements HandlerInterceptor {
     	// 获取左侧菜单
     	List<MenuEntity> leftMenuList = iSubjectService.findLeftMenus();
     	request.setAttribute("leftMenuList", leftMenuList);
+
+    	// 获取底部菜单
+    	List<MenuEntity> footerMenuList = iSubjectService.findFooterMenus();
+    	request.setAttribute("footerMenuList", footerMenuList);
     	
     	// 获取首页专区
     	List<CourseEntity> courseList = iCourseService.findGaokaoArea(TamguoConstant.GAOKAO_SUBJECT_ID);
@@ -72,16 +80,20 @@ public class MenuInterceptor implements HandlerInterceptor {
     	request.setAttribute("simulationPaperList", simulationPaperList);
     	
     	// 获取热门试卷
-    	List<PaperEntity> hotPaperList = iPaperService.findHotPaper();
+    	List<PaperEntity> hotPaperList = iPaperService.findHotPaper(TamguoConstant.BEIJING_AREA_ID);
     	request.setAttribute("hotPaperList", hotPaperList);
     	
     	// 获取首页名校试卷
-    	List<SchoolEntity> eliteSchoolPaperList = iSchoolService.findEliteSchoolPaper();
+    	List<SchoolEntity> eliteSchoolPaperList = iSchoolService.findEliteSchoolPaper(TamguoConstant.BEIJING_AREA_ID);
     	request.setAttribute("eliteSchoolPaperList", eliteSchoolPaperList);
     	
     	// 获取首页名校列表
     	List<SchoolEntity> eliteSchoolList = iSchoolService.findEliteSchool();
     	request.setAttribute("eliteSchoolList", eliteSchoolList);
+    	
+    	// 获取所有广告
+    	List<AdEntity> adList = iAdService.findAll();
+    	request.setAttribute("adList", adList);
     	
     	// 设置系统变量
     	request.setAttribute("setting", Setting.getSetting());

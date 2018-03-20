@@ -3,6 +3,10 @@ package com.tamguo.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.alibaba.fastjson.JSONArray;
+
 
 /**
  * The persistent class for the tiku_chapter database table.
@@ -29,6 +33,9 @@ public class PaperEntity implements Serializable {
 	@Column(name="name")
 	private String name;
 	
+	@Column(name="question_info")
+	private String questionInfo;
+	
 	@Column(name="type")
 	private String type;
 	
@@ -40,6 +47,13 @@ public class PaperEntity implements Serializable {
 	
 	@Column(name="open_hits")
 	private Integer openHits;
+	
+	public JSONArray getQueInfo(){
+		if(StringUtils.isEmpty(getQuestionInfo())){
+			return null;
+		}
+		return JSONArray.parseArray(getQuestionInfo());
+	}
 
 	public String getUid() {
 		return uid;
@@ -115,6 +129,14 @@ public class PaperEntity implements Serializable {
 
 	public void setOpenHits(Integer openHits) {
 		this.openHits = openHits;
+	}
+
+	public String getQuestionInfo() {
+		return questionInfo;
+	}
+
+	public void setQuestionInfo(String questionInfo) {
+		this.questionInfo = questionInfo;
 	}
 
 }

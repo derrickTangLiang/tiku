@@ -19,6 +19,9 @@ public class TamguoConstant {
 	/** 首页左侧菜单缓存KEY*/
 	public static final String LEFT_INDEX_MENU = "left_index_menu";
 	
+	/** 首页底部菜单缓存KEY*/
+	public static final String FOOTER_INDEX_MENU = "footer_index_menu";
+	
 	/** 北京地区ID*/
 	public static final String BEIJING_AREA_ID = "1";
 	
@@ -40,6 +43,9 @@ public class TamguoConstant {
 	/** 名校试卷缓存KEY*/
 	public static final String ELITE_SCHOOL_PAPER = "EliteSchoolPaper:";
 	
+	/** 所有广告缓存KEY*/
+	public static final String ALL_AD = "AllAd:";
+	
 	/** 名校缓存KEY*/
 	public static final String ELITE_PAPER = "ElitePaper:";
 	
@@ -49,4 +55,18 @@ public class TamguoConstant {
 	/** 默认分页大笑*/
 	public static final Integer DEFAULT_PAGE_SIZE = 10;
 	
+	/** 单选题*/
+	public static final String QUESTION_TYOE_DANXUANTI = "1";
+	
+	/** 简答题*/
+	public static final String QUESTION_TYOE_JIANDATI = "2";
+	
+	/** 书面表达*/
+	public static final String QUESTION_TYOE_SHUMIANBIAODA = "3";
+	
+	/** 默认会员头像*/
+	public static final String DEFAULT_MEMBER_AVATAR = "https://gss0.bdstatic.com/6LZ1dD3d1sgCo2Kml5_Y_D3/sys/portrait/item/01b9536d696c65746f63616e6479e71e";
+	
+	/** 重置密码KEY*/
+	public static final String RESET_PASSWORD_KEY = "ResetPasswordKey";
 }
