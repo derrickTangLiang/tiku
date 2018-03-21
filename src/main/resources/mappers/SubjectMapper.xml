@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tamguo.dao.SubjectMapper">
+
+  <resultMap id="BaseResultMap" type="com.tamguo.model.SubjectEntity" >
+    <id column="uid" property="uid" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    uid, name
+  </sql>
+  
+  <select id="queryList" resultMap="BaseResultMap">
+		select s.*
+			from tiku_subject s order by s.uid asc
+  </select>
+
+</mapper>

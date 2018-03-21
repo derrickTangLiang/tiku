@@ -1,12 +1,10 @@
 $(function () {
     $("#jqGrid").jqGrid({
-        url: '../sysRole/list',
+        url: '../subject/list',
         datatype: "json",
         colModel: [			
-			{ label: '角色ID', name: 'roleId', width: 45, key: true },
-			{ label: '角色名称', name: 'roleName', width: 75 },
-			{ label: '备注', name: 'remark', width: 100 },
-			{ label: '创建时间', name: 'createTime', width: 80,formatter:'date',formatoptions: { srcformat: 'u', newformat: 'Y-m-d H:i:s' }}                   
+			{ label: 'uid', name: 'uid', width: 45, key: true },
+			{ label: '类型名称', name: 'name', width: 75 }
         ],
 		viewrecords: true,
         height: 385,
@@ -58,11 +56,11 @@ var vm = new Vue({
 	el:'#rrapp',
 	data:{
 		q:{
-			roleName: null
+			name: null
 		},
 		showList: true,
 		title:null,
-		role:{}
+		subject:{}
 	},
 	methods: {
 		query: function () {
@@ -71,7 +69,7 @@ var vm = new Vue({
 		add: function(){
 			vm.showList = false;
 			vm.title = "新增";
-			vm.role = {};
+			vm.subject = {};
 			vm.getMenuTree(null);
 		},
 		update: function () {
@@ -93,7 +91,7 @@ var vm = new Vue({
 			confirm('确定要删除选中的记录？', function(){
 				$.ajax({
 					type: "POST",
-				    url: "../sysRole/delete",
+				    url: "../subject/delete",
 				    data: JSON.stringify(roleIds),
 				    success: function(r){
 						if(r.code == 0){
@@ -108,7 +106,7 @@ var vm = new Vue({
 			});
 		},
 		getRole: function(roleId){
-            $.get("../sysRole/info/"+roleId, function(r){
+            $.get("../subject/info/"+roleId, function(r){
             	vm.role = r.result;
             	console.info(r.result);
                 //勾选角色所拥有的菜单
@@ -120,19 +118,11 @@ var vm = new Vue({
     		});
 		},
 		saveOrUpdate: function (event) {
-			//获取选择的菜单
-			var nodes = ztree.getCheckedNodes(true);
-			var menuIdList = new Array();
-			for(var i=0; i<nodes.length; i++) {
-				menuIdList.push(nodes[i].menuId);
-			}
-			vm.role.menuIdList = menuIdList;
-			
-			var url = vm.role.roleId == null ? "../sysRole/save" : "../sysRole/update";
+			var url = vm.subject.uid == null ? "../subject/save" : "../subject/update";
 			$.ajax({
 				type: "POST",
 			    url: url,
-			    data: JSON.stringify(vm.role),
+			    data: JSON.stringify(vm.subject),
 			    success: function(r){
 			    	if(r.code === 0){
 						alert('操作成功', function(index){
@@ -146,7 +136,7 @@ var vm = new Vue({
 		},
 		getMenuTree: function(roleId) {
 			//加载菜单树
-			$.get("../sysMenu/perms", function(r){
+			$.get("../subject/perms", function(r){
 				ztree = $.fn.zTree.init($("#menuTree"), setting, r.result);
 				//展开所有节点
 				ztree.expandAll(true);
