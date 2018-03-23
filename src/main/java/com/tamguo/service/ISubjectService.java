@@ -27,4 +27,10 @@ public interface ISubjectService {
 	 * 保存类型
 	 */
 	void save(SubjectEntity entity);
+
+	SubjectEntity queryObject(Long subjectId);
+
+	void update(SubjectEntity subject);
+
+	void deleteBatch(String[] subjectIds);
 }

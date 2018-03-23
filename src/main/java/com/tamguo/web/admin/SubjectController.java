@@ -64,16 +64,11 @@ public class SubjectController {
 	/**
 	 * 角色信息
 	 */
-	@RequestMapping("/info/{roleId}")
+	@RequestMapping("/info/{subjectId}")
 	@RequiresPermissions("tiku:subject:info")
-	public @ResponseBody Result info(@PathVariable("roleId") Long roleId) {
-		SysRoleEntity role = sysRoleService.queryObject(roleId);
-
-		// 查询角色对应的菜单
-		List<Long> menuIdList = sysRoleMenuService.queryMenuIdList(roleId);
-		role.setMenuIdList(menuIdList);
-
-		return Result.successResult(role);
+	public @ResponseBody Result info(@PathVariable("subjectId") Long subjectId) {
+		SubjectEntity subject = iSubjectService.queryObject(subjectId);
+		return Result.successResult(subject);
 	}
 
 	/**
@@ -98,15 +93,15 @@ public class SubjectController {
 	 */
 	@RequestMapping("/update")
 	@RequiresPermissions("tiku:subject:update")
-	public @ResponseBody Result update(@RequestBody SysRoleEntity role) {
-		if (StringUtils.isEmpty(role.getRoleName())) {
-			return Result.failResult("角色名称不能为空");
+	public @ResponseBody Result update(@RequestBody SubjectEntity subject) {
+		if (StringUtils.isEmpty(subject.getName())) {
+			return Result.failResult("名称不能为空");
 		}
 		try {
-			sysRoleService.update(role);
+			iSubjectService.update(subject);
 			return Result.successResult(null);
 		} catch (Exception e) {
-			return ExceptionSupport.resolverResult("修改角色", this.getClass(), e);
+			return ExceptionSupport.resolverResult("修改类型", this.getClass(), e);
 		}
 	}
 

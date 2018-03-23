@@ -70,21 +70,21 @@ var vm = new Vue({
 			vm.showList = false;
 			vm.title = "新增";
 			vm.subject = {};
-			vm.getMenuTree(null);
 		},
 		update: function () {
-			var roleId = getSelectedRow();
-			if(roleId == null){
+			var subjectId = getSelectedRow();
+			if(subjectId == null){
 				return ;
 			}
-			
+            if(subjectId != null){
+                vm.getSubject(subjectId);
+            }
 			vm.showList = false;
             vm.title = "修改";
-            vm.getMenuTree(roleId);
 		},
 		del: function (event) {
-			var roleIds = getSelectedRows();
-			if(roleIds == null){
+			var subjectIds = getSelectedRows();
+			if(subjectIds == null){
 				return ;
 			}
 			
@@ -92,7 +92,7 @@ var vm = new Vue({
 				$.ajax({
 					type: "POST",
 				    url: "../subject/delete",
-				    data: JSON.stringify(roleIds),
+				    data: JSON.stringify(subjectIds),
 				    success: function(r){
 						if(r.code == 0){
 							alert('操作成功', function(index){
@@ -105,16 +105,10 @@ var vm = new Vue({
 				});
 			});
 		},
-		getRole: function(roleId){
-            $.get("../subject/info/"+roleId, function(r){
-            	vm.role = r.result;
+        getSubject: function(subjectId){
+            $.get("../subject/info/"+subjectId, function(r){
+            	vm.subject = r.result;
             	console.info(r.result);
-                //勾选角色所拥有的菜单
-    			var menuIds = vm.role.menuIdList;
-    			for(var i=0; i<menuIds.length; i++) {
-    				var node = ztree.getNodeByParam("menuId", menuIds[i]);
-    				ztree.checkNode(node, true, false);
-    			}
     		});
 		},
 		saveOrUpdate: function (event) {
@@ -134,18 +128,7 @@ var vm = new Vue({
 				}
 			});
 		},
-		getMenuTree: function(roleId) {
-			//加载菜单树
-			$.get("../subject/perms", function(r){
-				ztree = $.fn.zTree.init($("#menuTree"), setting, r.result);
-				//展开所有节点
-				ztree.expandAll(true);
-				
-				if(roleId != null){
-					vm.getRole(roleId);
-				}
-			});
-	    },
+
 	    reload: function (event) {
 	    	vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
