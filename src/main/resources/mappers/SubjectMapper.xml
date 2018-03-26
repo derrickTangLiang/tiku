@@ -5,10 +5,11 @@
     <resultMap id="BaseResultMap" type="com.tamguo.model.SubjectEntity">
         <id column="uid" property="uid" jdbcType="BIGINT"/>
         <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="course_id" property="courseId" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-    uid, name
+    uid, name, course_id
   </sql>
 
     <select id="queryList" resultMap="BaseResultMap">

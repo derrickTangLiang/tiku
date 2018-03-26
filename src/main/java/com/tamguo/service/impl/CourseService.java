@@ -12,28 +12,32 @@ import com.tamguo.service.ICourseService;
 import com.tamguo.util.TamguoConstant;
 
 @Service
-public class CourseService implements ICourseService{
-	
-	@Autowired
-	private CourseMapper courseMapper;
-	@Autowired
-	private CacheService cacheService;
+public class CourseService implements ICourseService {
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<CourseEntity> findGaokaoArea(String subjectId) {
-		List<CourseEntity> courseList = (List<CourseEntity>) cacheService.getObject(TamguoConstant.GAOKAO_COURSE_AREA);
-		courseList = null;
-		if(courseList == null || courseList.isEmpty()){
-			courseList = courseMapper.findBySubjectId(subjectId);
-			cacheService.setObject(TamguoConstant.GAOKAO_COURSE_AREA, courseList , 2 * 60 * 60);
-		}
-		return courseList;
-	}
+    @Autowired
+    private CourseMapper courseMapper;
+    @Autowired
+    private CacheService cacheService;
 
-	@Override
-	public List<CourseEntity> findBySubjectId(String subjectId) {
-		return courseMapper.findBySubjectId(subjectId);
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<CourseEntity> findGaokaoArea(String subjectId) {
+        List<CourseEntity> courseList = (List<CourseEntity>) cacheService.getObject(TamguoConstant.GAOKAO_COURSE_AREA);
+        courseList = null;
+        if (courseList == null || courseList.isEmpty()) {
+            courseList = courseMapper.findBySubjectId(subjectId);
+            cacheService.setObject(TamguoConstant.GAOKAO_COURSE_AREA, courseList, 2 * 60 * 60);
+        }
+        return courseList;
+    }
 
+    @Override
+    public List<CourseEntity> findBySubjectId(String subjectId) {
+        return courseMapper.findBySubjectId(subjectId);
+    }
+
+    @Override
+    public List<CourseEntity> findAllSubject() {
+        return courseMapper.selectAll();
+    }
 }

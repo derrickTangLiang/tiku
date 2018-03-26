@@ -20,6 +20,9 @@ public class SubjectEntity implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "course_id")
+    private String courseId;
+
 
     public SubjectEntity() {
     }
@@ -43,5 +46,13 @@ public class SubjectEntity implements Serializable {
 
     public void setUid(Integer uid) {
         this.uid = uid;
+    }
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
     }
 }
