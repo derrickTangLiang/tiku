@@ -132,8 +132,8 @@ var vm = new Vue({
 	    reload: function (event) {
 	    	vm.showList = true;
 			var page = $("#jqGrid").jqGrid('getGridParam','page');
-			$("#jqGrid").jqGrid('setGridParam',{ 
-                postData:{'roleName': vm.q.roleName},
+			$("#jqGrid").jqGrid('setGridParam',{
+                postData:{'name': vm.q.name},
                 page:page
             }).trigger("reloadGrid");
 		}

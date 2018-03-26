@@ -26,10 +26,6 @@ import java.util.Map;
 @RequestMapping("admin/subject")
 public class SubjectController {
 	@Autowired
-	private ISysRoleService sysRoleService;
-	@Autowired
-	private ISysRoleMenuService sysRoleMenuService;
-	@Autowired
 	private ISubjectService iSubjectService;
 
 
@@ -48,17 +44,6 @@ public class SubjectController {
 		List<SubjectEntity> result = list.getResult();
 		return Result.jqGridResult(result, list.getTotal(), limit, page, list.getPages());
 
-	}
-
-	/**
-	 * 角色列表
-	 */
-	@RequestMapping("/select")
-	@RequiresPermissions("tiku:subject:select")
-	public @ResponseBody Result select() {
-		// 查询列表数据
-		List<SysRoleEntity> list = sysRoleService.queryList(new SysRoleEntity(), 1, 10000);
-		return Result.successResult(list);
 	}
 
 	/**
@@ -106,16 +91,16 @@ public class SubjectController {
 	}
 
 	/**
-	 * 删除角色
+	 * 删除类型
 	 */
 	@RequestMapping("/delete")
 	@RequiresPermissions("tiku:subject:delete")
-	public @ResponseBody Result delete(@RequestBody String[] roleIds) {
+	public @ResponseBody Result delete(@RequestBody String[] subjectIds) {
 		try {
-			sysRoleService.deleteBatch(roleIds);
+			iSubjectService.deleteBatch(subjectIds);
 			return Result.successResult(null);
 		} catch (Exception e) {
-			return ExceptionSupport.resolverResult("删除角色", this.getClass(), e);
+			return ExceptionSupport.resolverResult("删除类型", this.getClass(), e);
 		}
 	}
 }
