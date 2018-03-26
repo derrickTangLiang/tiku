@@ -1,9 +1,10 @@
 package com.tamguo.dao;
 
-import java.util.List;
-
 import com.tamguo.model.MenuEntity;
 import com.tamguo.mybatis.dao.BaseDao;
+
+import java.util.List;
+import java.util.Map;
 
 public interface MenuMapper extends BaseDao<MenuEntity>{
 
@@ -16,5 +17,7 @@ public interface MenuMapper extends BaseDao<MenuEntity>{
 	public List<MenuEntity> findLeftFatherMenus();
 
 	public List<MenuEntity> findFooterFatherMenus();
+
+	public List<MenuEntity> queryList(Map<String, Object> map);
 	
 }

@@ -24,7 +24,7 @@ import java.util.Map;
  */
 @Controller(value="adminSubjectController")
 @RequestMapping("admin/subject")
-public class SubjectController {
+public class TikuSubjectController {
 	@Autowired
 	private ISubjectService iSubjectService;
 
@@ -64,6 +64,9 @@ public class SubjectController {
 	public @ResponseBody Result save(@RequestBody SubjectEntity subjectEntity) {
 		if (StringUtils.isEmpty(subjectEntity.getName())) {
 			return Result.failResult("名称不能为空");
+		}
+		if (StringUtils.isEmpty(subjectEntity.getCourseId())) {
+			return Result.failResult("学科不能为空");
 		}
 		try {
 			iSubjectService.save(subjectEntity);

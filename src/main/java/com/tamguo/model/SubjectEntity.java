@@ -15,16 +15,24 @@ public class SubjectEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    private Integer uid;
+    private Long uid;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "course_id")
-    private String courseId;
+    private Long courseId;
 
 
     public SubjectEntity() {
+    }
+
+    public Long getUid() {
+        return uid;
+    }
+
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 
     public String getName() {
@@ -35,24 +43,11 @@ public class SubjectEntity implements Serializable {
         this.name = name;
     }
 
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-
-    public Integer getUid() {
-        return uid;
-    }
-
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
-
-    public String getCourseId() {
+    public Long getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(Long courseId) {
         this.courseId = courseId;
     }
 }
