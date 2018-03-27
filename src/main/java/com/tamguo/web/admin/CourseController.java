@@ -34,7 +34,7 @@ public class CourseController {
     @RequiresPermissions("tiku:course:all")
     public @ResponseBody
     Result list() {
-        List<CourseEntity> list = iCourseService.findAllSubject();
+        List<CourseEntity> list = iCourseService.findAllCourse();
         return Result.successResult(list);
 
     }

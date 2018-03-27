@@ -1,6 +1,7 @@
 package com.tamguo.web.admin;
 
 import com.github.pagehelper.Page;
+import com.tamguo.model.CourseEntity;
 import com.tamguo.model.SubjectEntity;
 import com.tamguo.model.SysRoleEntity;
 import com.tamguo.service.ISubjectService;
@@ -105,5 +106,17 @@ public class TikuSubjectController {
 		} catch (Exception e) {
 			return ExceptionSupport.resolverResult("删除类型", this.getClass(), e);
 		}
+	}
+
+	/**
+	 * 所有的题库类型
+	 */
+	@RequestMapping("/all")
+	@RequiresPermissions("tiku:subject:all")
+	public @ResponseBody
+	Result list() {
+		List<SubjectEntity> list = iSubjectService.findAllSubject();
+		return Result.successResult(list);
+
 	}
 }

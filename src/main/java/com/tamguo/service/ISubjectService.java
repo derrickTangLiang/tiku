@@ -2,11 +2,13 @@ package com.tamguo.service;
 
 
 import com.github.pagehelper.Page;
+import com.tamguo.model.CourseEntity;
 import com.tamguo.model.SubjectEntity;
 import com.tamguo.model.SysMenuEntity;
 import com.tamguo.model.SysRoleEntity;
 
 import javax.security.auth.Subject;
+import java.util.List;
 import java.util.Map;
 
 
@@ -33,4 +35,7 @@ public interface ISubjectService {
 	void update(SubjectEntity subject);
 
 	void deleteBatch(String[] subjectIds);
+
+	/** 获取所有题库类型 */
+	List<SubjectEntity> findAllSubject();
 }

@@ -12,6 +12,6 @@ public interface ICourseService {
 	List<CourseEntity> findBySubjectId(String subjectId);
 
 	/** 获取所有学科 */
-	List<CourseEntity> findAllSubject();
+	List<CourseEntity> findAllCourse();
 
 }

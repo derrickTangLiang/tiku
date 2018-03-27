@@ -19,16 +19,19 @@ public class MenuEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String uid;
+	private Long uid;
 
 	@Column(name="name")
 	private String name;
-	
+
+	@Column(name="subject_id")
+	private Long subjectId;
+
 	@Column(name="pinyin")
 	private String pinyin;
 
 	@Column(name="parent_id")
-	private BigInteger parentId;
+	private Long parentId;
 	
 	@Column(name="is_show")
 	private String isShow;
@@ -41,6 +44,8 @@ public class MenuEntity implements Serializable {
 
 	@Column(name="url")
 	private String url;
+
+
 	
 	// 子类型
 	private List<MenuEntity> childSubjects;
@@ -48,13 +53,6 @@ public class MenuEntity implements Serializable {
 	public MenuEntity() {
 	}
 
-	public String getUid() {
-		return this.uid;
-	}
-
-	public void setUid(String uid) {
-		this.uid = uid;
-	}
 
 	public String getName() {
 		return this.name;
@@ -64,11 +62,20 @@ public class MenuEntity implements Serializable {
 		this.name = name;
 	}
 
-	public BigInteger getParentId() {
-		return this.parentId;
+
+	public Long getUid() {
+		return uid;
 	}
 
-	public void setParentId(BigInteger parentId) {
+	public void setUid(Long uid) {
+		this.uid = uid;
+	}
+
+	public Long getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Long parentId) {
 		this.parentId = parentId;
 	}
 
@@ -119,5 +126,14 @@ public class MenuEntity implements Serializable {
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
+	public Long getSubjectId() {
+		return subjectId;
+	}
+
+	public void setSubjectId(Long subjectId) {
+		this.subjectId = subjectId;
+	}
+
 
 }

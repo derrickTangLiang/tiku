@@ -5,6 +5,8 @@ $(function () {
         colModel: [
             {label: 'uid', name: 'uid', width: 45, key: true},
             {label: '菜单名称', name: 'name', width: 75},
+            {label: 'pinyin', name: 'pinyin', width: 75},
+            {label: '是否展示', name: 'isShow', width: 75},
             {label: 'url', name: 'url', width: 75},
 
         ],
@@ -39,17 +41,13 @@ var setting = {
     data: {
         simpleData: {
             enable: true,
-            idKey: "menuId",
+            idKey: "uid",
             pIdKey: "parentId",
             rootPId: -1
         },
         key: {
             url: "nourl"
         }
-    },
-    check: {
-        enable: true,
-        nocheckInherit: true
     }
 };
 var ztree;
@@ -62,35 +60,57 @@ var vm = new Vue({
         },
         showList: true,
         title: null,
-        courseList: {},
-        subject: {}
+        subjectList: {},
+        entitys: {},
+        menu: {
+            parentName: null,
+            parentId: 0,
+            type: 1,
+            orderNum: 0
+        }
     },
     methods: {
+        loadMenu: function (menuId) {
+            //加载菜单树
+            $.get("../menu/select", function (r) {
+
+                ztree = $.fn.zTree.init($("#menuTree"), setting, r.result);
+                var node = ztree.getNodeByParam("uid", vm.menu.parentId);
+                ztree.selectNode(node);
+                vm.menu.parentName = node.name;
+            })
+        },
         query: function () {
             vm.reload();
         },
         add: function () {
             vm.showList = false;
             vm.title = "新增";
-            vm.subject = {};
-            vm.subject.courseId = "";
-            this.getCourseList();
+            this.getSubjectList();
+            vm.menu = {parentName: null, parentId: 0, type: 1, orderNum: 0};
+            this.loadMenu();
+            vm.entitys = {};
+            vm.entitys.subjectId = "";
         },
         update: function () {
-            var subjectId = getSelectedRow();
-            if (subjectId == null) {
+            vm.entitys = {};
+            var menuId = getSelectedRow();
+            if (menuId == null) {
                 return;
             }
-            if (subjectId != null) {
-                vm.getSubject(subjectId);
+            if (menuId != null) {
+                vm.getMenu(menuId);
             }
             vm.showList = false;
             vm.title = "修改";
-            this.getCourseList();
+
+            this.getSubjectList();
+            this.loadMenu();
+
         },
         del: function (event) {
-            var subjectIds = getSelectedRows();
-            if (subjectIds == null) {
+            var getMenuIds = getSelectedRows();
+            if (getMenuIds == null) {
                 return;
             }
 
@@ -98,7 +118,7 @@ var vm = new Vue({
                 $.ajax({
                     type: "POST",
                     url: "../menu/delete",
-                    data: JSON.stringify(subjectIds),
+                    data: JSON.stringify(getMenuIds),
                     success: function (r) {
                         if (r.code == 0) {
                             alert('操作成功', function (index) {
@@ -111,18 +131,18 @@ var vm = new Vue({
                 });
             });
         },
-        getSubject: function (subjectId) {
-            $.get("../menu/info/" + subjectId, function (r) {
-                vm.subject = r.result;
-                console.info(r.result);
+        getMenu: function (menuId) {
+            $.get("../menu/info/" + menuId, function (r) {
+
+                vm.entitys = r.result;
             });
         },
         saveOrUpdate: function (event) {
-            var url = vm.subject.uid == null ? "../menu/save" : "../menu/update";
+            var url = vm.entitys.uid == null ? "../menu/save" : "../menu/update";
             $.ajax({
                 type: "POST",
                 url: url,
-                data: JSON.stringify(vm.subject),
+                data: JSON.stringify(vm.entitys),
                 success: function (r) {
                     if (r.code === 0) {
                         alert('操作成功', function (index) {
@@ -143,9 +163,31 @@ var vm = new Vue({
                 page: page
             }).trigger("reloadGrid");
         },
-        getCourseList: function (event) {
-            $.get("../course/all", function (r) {
-                vm.courseList = r.result;
+        menuTree: function () {
+            layer.open({
+                type: 1,
+                offset: '50px',
+                skin: 'layui-layer-molv',
+                title: "选择菜单",
+                area: ['300px', '450px'],
+                shade: 0,
+                shadeClose: false,
+                content: jQuery("#menuLayer"),
+                btn: ['确定', '取消'],
+                btn1: function (index) {
+                    var node = ztree.getSelectedNodes();
+                    //选择上级菜单
+                    // vm.menu.parentId = node[0].uid;
+                    vm.menu.parentName = node[0].name;
+
+                    vm.entitys.parentId = node[0].uid;
+                    layer.close(index);
+                }
+            });
+        },
+        getSubjectList: function (event) {
+            $.get("../subject/all", function (r) {
+                vm.subjectList = r.result;
             });
         }
     }

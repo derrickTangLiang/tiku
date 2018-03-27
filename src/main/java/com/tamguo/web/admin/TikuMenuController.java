@@ -2,6 +2,7 @@ package com.tamguo.web.admin;
 
 import com.github.pagehelper.Page;
 import com.tamguo.model.MenuEntity;
+import com.tamguo.model.SysMenuEntity;
 import com.tamguo.service.ITikuMenuService;
 import com.tamguo.util.ExceptionSupport;
 import com.tamguo.util.Result;
@@ -103,5 +104,24 @@ public class TikuMenuController {
         } catch (Exception e) {
             return ExceptionSupport.resolverResult("删除类型", this.getClass(), e);
         }
+    }
+
+    /**
+     * 选择菜单(添加、修改菜单)
+     */
+    @RequestMapping("/select")
+    @RequiresPermissions("sys:menu:select")
+    public @ResponseBody Result select() {
+        // 查询列表数据
+        List<MenuEntity> menuList = iTikuMenuService.queryNotButtonList();
+
+        // 添加顶级菜单
+        MenuEntity root = new MenuEntity();
+        root.setUid(0L);
+        root.setName("一级菜单");
+        root.setParentId(-1L);
+//        root.setOpen(true);
+        menuList.add(root);
+        return Result.successResult(menuList);
     }
 }

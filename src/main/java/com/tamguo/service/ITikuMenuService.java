@@ -4,6 +4,7 @@ package com.tamguo.service;
 import com.github.pagehelper.Page;
 import com.tamguo.model.MenuEntity;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -31,4 +32,9 @@ public interface ITikuMenuService {
     void update(MenuEntity menu);
 
     void deleteBatch(String[] menuIds);
+
+    /**
+     * 获取不包含按钮的菜单列表
+     */
+    List<MenuEntity> queryNotButtonList();
 }

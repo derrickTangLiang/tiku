@@ -37,7 +37,7 @@ public class CourseService implements ICourseService {
     }
 
     @Override
-    public List<CourseEntity> findAllSubject() {
+    public List<CourseEntity> findAllCourse() {
         return courseMapper.selectAll();
     }
 }

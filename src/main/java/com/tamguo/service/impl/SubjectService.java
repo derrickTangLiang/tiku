@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -45,5 +46,10 @@ public class SubjectService implements ISubjectService {
     @Transactional
     public void deleteBatch(String[] subjectIds) {
         subjectMapper.deleteByIds(Arrays.asList(subjectIds));
+    }
+
+    @Override
+    public List<SubjectEntity> findAllSubject() {
+        return subjectMapper.selectAll();
     }
 }

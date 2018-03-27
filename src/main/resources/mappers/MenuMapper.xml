@@ -59,4 +59,10 @@
         order by uid asc
     </select>
 
+
+    <select id="queryNotButtonList" resultMap="resultMap">
+		select uid,name,parent_id,pinyin,is_show,orders,type,url
+		from tiku_menu where type != 2 order by orders asc
+	</select>
+
 </mapper>
