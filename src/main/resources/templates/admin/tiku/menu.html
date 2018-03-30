@@ -50,20 +50,11 @@
             <div class="form-group">
                 <div class="col-sm-2 control-label">题库类型</div>
                 <div class="col-sm-10">
-                    <select class="form-control">
+                    <select class="form-control" v-model="entitys.subjectId">
                         <option value="">请选择</option>
-                        <!--<option v-for="subject in subjectList" :value="subject.uid">-->
-                            <!--{{ subject.name }}-->
-                        <!--</option>-->
-
-                        <template v-for="subject in subjectList">
-                            <option :value="subject.uid" v-if="subject.uid == entitys.subjectId" selected v-model="entitys.subjectId">
-                                {{ subject.name }}
-                            </option>
-                            <option :value="subject.uid" v-model="entitys.subjectId" v-else>
-                                {{ subject.name }}
-                            </option>
-                        </template>
+                        <option v-for="subject in subjectList" :value="subject.uid">
+                            {{ subject.name }}
+                        </option>
                     </select>
                 </div>
             </div>

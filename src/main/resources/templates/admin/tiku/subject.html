@@ -50,19 +50,11 @@
             <div class="form-group">
                 <div class="col-sm-2 control-label">学科</div>
                 <div class="col-sm-10">
-                    <select  class="form-control">
+                    <select  v-model="subject.courseId" class="form-control" >
                         <option value="">请选择</option>
-                        <!--<option v-for="course in courseList" :value="course.uid">-->
-                            <!--{{ course.name }}-->
-                        <!--</option>-->
-                        <template v-for="course in courseList">
-                            <option :value="course.uid" v-if="course.uid == subject.courseId" selected v-model="subject.courseId">
-                                {{ course.name }}
-                            </option>
-                            <option :value="course.uid" v-model="subject.courseId" v-else>
-                                {{ course.name }}
-                            </option>
-                        </template>
+                        <option v-for="course in courseList" :value="course.uid" >
+                            {{ course.name }}
+                        </option>
                     </select>
                 </div>
             </div>
